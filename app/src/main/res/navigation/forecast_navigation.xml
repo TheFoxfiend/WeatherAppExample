@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/forecast_navigation"
+    app:startDestination="@id/CitySearchFragment">
+
+    <fragment
+        android:id="@+id/CitySearchFragment"
+        android:name="com.inaki.weatherappexample.ui.CityFragment"
+        android:label="Search City">
+
+
+        <action
+            android:id="@+id/action_CitySearchFragment_to_CityForecastFragment"
+            app:destination="@id/CityForecastFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/CityForecastFragment"
+        android:label="City forecast"
+        android:name="com.inaki.weatherappexample.ui.CityForecastFragment">
+        <action
+            android:id="@+id/action_CityForecastFragment_to_ForecastDetailsFragment"
+            app:destination="@id/ForecastDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ForecastDetailsFragment"
+        android:label="Forecast details"
+        android:name="com.inaki.weatherappexample.ui.ForecastDetails"/>
+
+</navigation>
