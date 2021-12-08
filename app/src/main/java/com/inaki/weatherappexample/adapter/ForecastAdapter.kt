@@ -9,6 +9,8 @@ import com.inaki.weatherappexample.R
 import com.inaki.weatherappexample.model.City
 import com.inaki.weatherappexample.model.CityForecast
 import com.inaki.weatherappexample.model.Forecast
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.*
 
 class ForecastAdapter(
@@ -40,7 +42,7 @@ class ForecastAdapter(
         // setting values to the view holder
         holder.weather.text = forecast.weather[0].main
         holder.forecastDate.text = forecast.dtTxt
-        holder.temperature.text = forecast.main.temp.toString()
+        holder.temperature.text = BigDecimal((forecast.main.temp - 273.15)*9/5+32).setScale(2, RoundingMode.HALF_EVEN).toString()
 
         // getting the city and displaying name and country
         holder.city.text = String.format(Locale.getDefault(), city?.name + ", " + city?.country)
