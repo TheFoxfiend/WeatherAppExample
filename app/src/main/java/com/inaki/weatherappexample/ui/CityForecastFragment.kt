@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inaki.weatherappexample.R
@@ -22,6 +23,10 @@ import io.reactivex.schedulers.Schedulers
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
+const val DATE_TODAY = "DATE_TODAY"
+const val TEMP_FORECAST = "TEMP_FORECAST"
+const val MIN_TEMP = "MIN_TEMP"
 
 class CityForecastFragment : Fragment(), ForecastDetailsClick {
     // TODO: Rename and change types of parameters
@@ -97,7 +102,24 @@ class CityForecastFragment : Fragment(), ForecastDetailsClick {
             }
     }
 
+    /**
+     * This method will help to move to the next fragment with the information needed
+     */
     override fun moveToForecastDetails(cityName: String, forecast: Forecast) {
-        findNavController().navigate(R.id.ForecastDetailsFragment)
+        //here we are finding the nav controller and navigating to details fragment
+        // here we can add arguments to pass the data
+        // TODO put the missing arguments needed in the next fragment
+        findNavController().navigate(
+            R.id.ForecastDetailsFragment,
+            bundleOf(
+                // here you are passing the data you need in next screen
+                // this is a Pair means key-value data
+                // and then it can be consume in next fragment calling arguments
+                Pair(CITY_NAME, cityName),
+                Pair(DATE_TODAY, forecast.dtTxt),
+                Pair(TEMP_FORECAST, forecast.main.temp.toString()),
+                Pair(MIN_TEMP, forecast.main.tempMin.toString())
+            )
+        )
     }
 }

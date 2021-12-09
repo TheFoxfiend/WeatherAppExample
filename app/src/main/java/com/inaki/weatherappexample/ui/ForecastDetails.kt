@@ -6,27 +6,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.inaki.weatherappexample.R
+import com.inaki.weatherappexample.databinding.FragmentCityForecastBinding
+import com.inaki.weatherappexample.databinding.FragmentForecastDetailsBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ForecastDetails.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ForecastDetails : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+    private var cityName: String? = null
+    private var temperature: String? = null
+    private var minTemp: String? = null
+    private var dateToday: String? = null
+
+    private lateinit var binding: FragmentForecastDetailsBinding
+
+    /**
+     * onCreate method will help to get the arguments from the previous fragment
+     * we can store them into a global variables to be used in the whole fragment
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // todo add the missing arguments from previous fragment
+        // here we are getting the arguments and set them to the variables
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            cityName = it.getString(CITY_NAME)
+            temperature = it.getString(TEMP_FORECAST)
+            minTemp = it.getString(MIN_TEMP)
+            dateToday = it.getString(DATE_TODAY)
         }
     }
 
@@ -35,26 +39,20 @@ class ForecastDetails : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forecast_details, container, false)
+        binding = FragmentForecastDetailsBinding.inflate(inflater, container, false)
+
+        // here we are setting our views with the respective value
+        binding.cityName.text = cityName
+        binding.forecastMinTemp.text = minTemp
+        binding.forecastTemp.text = temperature
+        binding.forecastDate.text = dateToday
+
+        return binding.root
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ForecastDetails.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ForecastDetails().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+            ForecastDetails()
     }
 }
