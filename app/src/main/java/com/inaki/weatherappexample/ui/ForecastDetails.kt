@@ -15,6 +15,10 @@ class ForecastDetails : Fragment() {
     private var temperature: String? = null
     private var minTemp: String? = null
     private var dateToday: String? = null
+    private var maxTemp: String? = null
+    private var weather: String? = null
+    private var weatherDesc: String? = null
+    private var tempFeel: String? = null
 
     private lateinit var binding: FragmentForecastDetailsBinding
 
@@ -31,6 +35,10 @@ class ForecastDetails : Fragment() {
             temperature = it.getString(TEMP_FORECAST)
             minTemp = it.getString(MIN_TEMP)
             dateToday = it.getString(DATE_TODAY)
+            maxTemp = it.getString(MAX_TEMP)
+            weather = it.getString(WEATHER)
+            weatherDesc = it.getString(WEATHER_DESC)
+            tempFeel = it.getString(TEMP_FEEL)
         }
     }
 
@@ -43,9 +51,13 @@ class ForecastDetails : Fragment() {
 
         // here we are setting our views with the respective value
         binding.cityName.text = cityName
-        binding.forecastMinTemp.text = minTemp
-        binding.forecastTemp.text = temperature
-        binding.forecastDate.text = dateToday
+        binding.forecastMinTemp.text = "Minimum temperature: "+ minTemp
+        binding.forecastTemp.text = "Temperature: "+ temperature
+        binding.forecastDate.text = "Date: "+ dateToday
+        binding.forecastMaxTemp.text = "Maximum temperature: "+ maxTemp
+        binding.weatherForecast.text = weather
+        binding.weatherDescription.text = weatherDesc
+        binding.forecastTempFeels.text = "How warm it feels: "+ tempFeel
 
         return binding.root
     }

@@ -15,9 +15,12 @@ import com.inaki.weatherappexample.adapter.ForecastDetailsClick
 import com.inaki.weatherappexample.databinding.FragmentCityForecastBinding
 import com.inaki.weatherappexample.model.CityForecast
 import com.inaki.weatherappexample.model.Forecast
+import com.inaki.weatherappexample.model.Weather
 import com.inaki.weatherappexample.rest.Retrofit
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +30,10 @@ private const val ARG_PARAM2 = "param2"
 const val DATE_TODAY = "DATE_TODAY"
 const val TEMP_FORECAST = "TEMP_FORECAST"
 const val MIN_TEMP = "MIN_TEMP"
+const val MAX_TEMP = "MAX_TEMP"
+const val WEATHER = "WEATHER"
+const val WEATHER_DESC = "WEATHER_DESC"
+const val TEMP_FEEL = "TEMP_FEEL"
 
 class CityForecastFragment : Fragment(), ForecastDetailsClick {
     // TODO: Rename and change types of parameters
@@ -117,8 +124,13 @@ class CityForecastFragment : Fragment(), ForecastDetailsClick {
                 // and then it can be consume in next fragment calling arguments
                 Pair(CITY_NAME, cityName),
                 Pair(DATE_TODAY, forecast.dtTxt),
-                Pair(TEMP_FORECAST, forecast.main.temp.toString()),
-                Pair(MIN_TEMP, forecast.main.tempMin.toString())
+                Pair(TEMP_FORECAST, BigDecimal((forecast.main.temp - 273.15)*9/5+32).setScale(2, RoundingMode.HALF_EVEN).toString()),
+                Pair(MIN_TEMP, BigDecimal((forecast.main.tempMin - 273.15)*9/5+32).setScale(2, RoundingMode.HALF_EVEN).toString()),
+                Pair(MAX_TEMP, BigDecimal((forecast.main.tempMax - 273.15)*9/5+32).setScale(2, RoundingMode.HALF_EVEN).toString()),
+                Pair(WEATHER, forecast.weather[0].main),
+                Pair(WEATHER_DESC, forecast.weather[0].description),
+                Pair(TEMP_FEEL, BigDecimal((forecast.main.feelsLike - 273.15)*9/5+32).setScale(2, RoundingMode.HALF_EVEN).toString())
+            //BigDecimal((forecast.main.feelsLike - 273.15)*9/5+32).setScale(2, RoundingMode.HALF_EVEN)
             )
         )
     }
